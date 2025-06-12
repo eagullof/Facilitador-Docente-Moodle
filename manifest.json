@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Facilitador Docente Moodle",
+  "version": "1.0",
+  "description": "Facilita la tarea del docente en la plataforma de moodle.",
+  "permissions": [
+    "scripting",
+    "activeTab"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  },
+  "host_permissions": [
+    "<all_urls>"
+  ]
+}
