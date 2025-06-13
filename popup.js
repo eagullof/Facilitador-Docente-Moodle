@@ -37,8 +37,6 @@
         aplicarFecha();
     }
 })();
-
-
 // Botón: No entregado
 document.getElementById("btn-no-entregado").addEventListener("click", async () => {
     try {
@@ -238,6 +236,9 @@ document.getElementById("btn-descargar-test").addEventListener("click", async ()
         chrome.scripting.executeScript({
             target: { tabId: tab.id },
             func: (nombreTest) => {
+
+                console.log(window.location.origin);
+
                 function extraerIdsExamenes(seccion) {
                     const ids = [];
                     const sections = document.querySelectorAll('li.section');
@@ -256,7 +257,7 @@ document.getElementById("btn-descargar-test").addEventListener("click", async ()
                 const ids = extraerIdsExamenes(nombreTest);
                 const sesskey = document.getElementsByName('sesskey')[0].value;
                 const modos = ['overview', 'responses'];
-                const baseUrl = 'https://www.fpvirtualaragon.es/mod/quiz/report.php';
+                const baseUrl = window.location.origin+'/mod/quiz/report.php';
                 const fixedParams = `sesskey=${sesskey}&download=excel&attemps=enrolled_with&onlygraded&onlyregraded&slotmarks=1&resp=1&right=1&qtext=1`;
 
                 let delay = 0;
@@ -387,7 +388,7 @@ document.getElementById("btn-modificar-cuestionarios").addEventListener("click",
 
 
                     function setDateAndPassword() {
-                        fetch('https://www.fpvirtualaragon.es/course/modedit.php', {
+                        fetch(window.location.origin+'/course/modedit.php', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded',
