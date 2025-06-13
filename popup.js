@@ -274,11 +274,12 @@ document.getElementById("btn-descargar-test").addEventListener("click", async ()
                         delay += 500;
                     });
                 });
+                window.alert("Descarga iniciada. Revisa tu carpeta de descargas.");
             },
             args: [nombreTest]
         });
     } catch (error) {
-        console.error("Error al descargar test:", error);
+        window.alert("Error al descargar el test. Asegúrate de que el nombre de la sección es correcto y está en minúsculas.");
     }
 });
 
@@ -367,10 +368,10 @@ document.getElementById("btn-modificar-cuestionarios").addEventListener("click",
                         body: new URLSearchParams(data).toString(),
                     })
                         .then(response => {
-                            console.log(response);
+                            window.alert(`Datos del cuestionario "${nombres[index]}" actualizados correctamente.`);
                         })
                         .catch(error => {
-                            console.error("Error al establecer la fecha y contraseña:", error);
+                            window.alert(`Error al actualizar el cuestionario "${nombres[index]}".`);
                         })
                 }
                 setDateAndPassword();
