@@ -261,6 +261,7 @@ document.getElementById("btn-descargar-test").addEventListener("click", async ()
 
                 let delay = 0;
                 ids.forEach(id => {
+                    console.log(id);
                     modos.forEach(mode => {
                         const url = `${baseUrl}?${fixedParams}&id=${id}&mode=${mode}`;
                         setTimeout(() => {
@@ -274,7 +275,6 @@ document.getElementById("btn-descargar-test").addEventListener("click", async ()
                         delay += 500;
                     });
                 });
-                window.alert("Descarga iniciada. Revisa tu carpeta de descargas.");
             },
             args: [nombreTest]
         });
@@ -303,6 +303,32 @@ document.getElementById("btn-modificar-cuestionarios").addEventListener("click",
             document.getElementById("fecha-cierre-cbx").checked,
             document.getElementById("quizzpass").value.trim(),
         ]
+
+        if (fechas[10] && fechas[11]) { // Si ambas fechas están activadas
+            const apertura = new Date(
+                parseInt(fechas[2]), // año
+                parseInt(fechas[1]) - 1, // mes (0-indexado en JS)
+                parseInt(fechas[0]), // día
+                parseInt(fechas[3]), // hora
+                parseInt(fechas[4])  // minuto
+            );
+
+            const cierre = new Date(
+                parseInt(fechas[7]), // año
+                parseInt(fechas[6]) - 1, // mes
+                parseInt(fechas[5]), // día
+                parseInt(fechas[8]), // hora
+                parseInt(fechas[9])  // minuto
+            );
+
+            if (apertura >= cierre) {
+                alert("La fecha de apertura debe ser anterior a la fecha de cierre.");
+                return;
+            } else {
+                console.log("Fechas válidas.");
+            }
+        }
+
         const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
         chrome.scripting.executeScript({
@@ -336,47 +362,48 @@ document.getElementById("btn-modificar-cuestionarios").addEventListener("click",
                 console.log(fechas[11]);
                 ids.forEach((id, index) => {
                     const data = {
-                    course: datacourse_id,
-                    coursemodule: id,
-                    update: id,
-                    sesskey: sesskey,
-                    'timeopen[enabled]': fechas[10] ? '1' : '0',
-                    'timeopen[day]': fechas[0],
-                    'timeopen[month]': fechas[1],
-                    'timeopen[year]': fechas[2],
-                    'timeopen[hour]': fechas[3],
-                    'timeopen[minute]': fechas[4],
-                    'timeclose[enabled]': fechas[11] ? '1' : '0',
-                    'timeclose[day]': fechas[5],
-                    'timeclose[month]': fechas[6],
-                    'timeclose[year]': fechas[7],
-                    'timeclose[hour]': fechas[8],
-                    'timeclose[minute]': fechas[9],
-                    'quizpassword': fechas[12],
-                    '_qf__mod_quiz_mod_form': '1',
-                    name: nombres[index],
-                    availabilityconditionsjson: '{"op":"&","c":[],"showc":[]}',
-                };
+                        course: datacourse_id,
+                        coursemodule: id,
+                        update: id,
+                        sesskey: sesskey,
+                        'timeopen[enabled]': fechas[10] ? '1' : '0',
+                        'timeopen[day]': fechas[0],
+                        'timeopen[month]': fechas[1],
+                        'timeopen[year]': fechas[2],
+                        'timeopen[hour]': fechas[3],
+                        'timeopen[minute]': fechas[4],
+                        'timeclose[enabled]': fechas[11] ? '1' : '0',
+                        'timeclose[day]': fechas[5],
+                        'timeclose[month]': fechas[6],
+                        'timeclose[year]': fechas[7],
+                        'timeclose[hour]': fechas[8],
+                        'timeclose[minute]': fechas[9],
+                        'quizpassword': fechas[12],
+                        '_qf__mod_quiz_mod_form': '1',
+                        'completion': '0',
+                        name: nombres[index],
+                        availabilityconditionsjson: '{"op":"&","c":[],"showc":[]}',
+                    };
 
 
-                function setDateAndPassword() {
-                    fetch('https://www.fpvirtualaragon.es/course/modedit.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: new URLSearchParams(data).toString(),
-                    })
-                        .then(response => {
-                            window.alert(`Datos del cuestionario "${nombres[index]}" actualizados correctamente.`);
+                    function setDateAndPassword() {
+                        fetch('https://www.fpvirtualaragon.es/course/modedit.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: new URLSearchParams(data).toString(),
                         })
-                        .catch(error => {
-                            window.alert(`Error al actualizar el cuestionario "${nombres[index]}".`);
-                        })
-                }
-                setDateAndPassword();
+                            .then(response => {
+                                window.alert(`Datos del cuestionario "${nombres[index]}" actualizados correctamente.`);
+                            })
+                            .catch(error => {
+                                window.alert(`Error al actualizar el cuestionario "${nombres[index]}".`);
+                            })
+                    }
+                    setDateAndPassword();
                 });
-                
+
             },
             args: [nombreTest, fechas]
         });
