@@ -1,0 +1,75 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 1rem;
+  width: fit-content;
+}
+
+p{
+  margin: 0.5rem 0;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.action-button {
+  padding: 0.7rem 1.2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-rojo {
+  background-color: #da2525af;
+  width: 100%;
+}
+
+.btn-verde {
+  background-color: #3f8641de;
+  width: 100%;
+}
+
+.btn-azul {
+  background-color: rgb(47, 66, 235);
+  width: 100%;
+}
+
+.btn-celeste {
+  background-color: rgb(47, 144, 235);
+  width: 100%;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+}
+
+label {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+}
+
+textarea {
+  width: 100%;
+  padding: 0.6rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 4px #3498db;
+}

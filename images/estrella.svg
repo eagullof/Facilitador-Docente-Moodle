@@ -1,0 +1,33 @@
+<svg
+  viewBox="0 0 200 200"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <!-- Círculo azul pastel con borde negro -->
+  <circle
+    cx="100"
+    cy="100"
+    r="90"
+    fill="#6fa8c2"
+    stroke="#19455e"
+    stroke-width="4"
+  />
+
+  <!-- Estrella amarilla pastel con borde negro -->
+  <polygon
+    fill="#e7c98c"
+    stroke="#d7af5c"
+    stroke-width="4"
+    points="
+      100,30
+      117,78
+      168,78
+      127,109
+      141,160
+      100,132
+      59,160
+      73,109
+      32,78
+      83,78
+    "
+  />
+</svg>

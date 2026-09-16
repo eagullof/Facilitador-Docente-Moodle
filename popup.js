@@ -1,42 +1,15 @@
-(function () {
-    const today = new Date();
-    const dia = today.getDate();
-    const mes = today.getMonth() + 1;
-    const anio = today.getFullYear();
+// Inicializar tooltips y popovers de Bootstrap
+const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
 
-    function seleccionarValor(id, valor) {
-        const select = document.getElementById(id);
-        if (select) {
-            for (const option of select.options) {
-                if (parseInt(option.value) === valor) {
-                    option.selected = true;
-                    break;
-                }
-            }
-        }
-    }
+// Cerrar popovers al hacer clic fuera de ellos
+document.addEventListener('click', function (e) {
+    document.querySelectorAll('[data-bs-toggle="popover"]').forEach(el => {
+        const pop = bootstrap.Popover.getInstance(el);
+        if (pop && !el.contains(e.target)) pop.hide();
+    });
+});
 
-    function aplicarFecha() {
-        seleccionarValor("apertura-dia", dia);
-        seleccionarValor("apertura-mes", mes);
-        seleccionarValor("apertura-anio", anio);
-        seleccionarValor("apertura-hora", 9);
-        seleccionarValor("apertura-minuto", 0);
-
-        seleccionarValor("cierre-dia", dia);
-        seleccionarValor("cierre-mes", mes);
-        seleccionarValor("cierre-anio", anio);
-        seleccionarValor("cierre-hora", 23);
-        seleccionarValor("cierre-minuto", 59);
-    }
-
-    // Esperar a que el DOM esté listo
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", aplicarFecha);
-    } else {
-        aplicarFecha();
-    }
-})();
 // Botón: No entregado
 document.getElementById("btn-no-entregado").addEventListener("click", async () => {
     try {
@@ -85,7 +58,7 @@ document.getElementById("btn-aplicar-rubrica").addEventListener("click", async (
         chrome.scripting.executeScript({
             target: { tabId: tab.id },
             func: (csvData) => {
-                const lines = csvData.split("#").filter(Boolean);
+                const lines = csvData.split("\n").filter(Boolean);
                 const headers = ["item", "puntos"];
                 const items = lines.map(line => {
                     const values = line.split(";");
@@ -109,27 +82,37 @@ document.getElementById("btn-aplicar-rubrica").addEventListener("click", async (
                 document.getElementById("page")?.click();
                 document.getElementById("rubric-options-lockzeropoints")?.click();
 
-                items.forEach((item, i) => {
+                items.forEach(async (item, i) => {
                     const baseId = `rubric-criteria-NEWID${i + 1}`;
                     const parent = document.getElementById(baseId);
+
                     if (!parent) return;
 
                     parent.querySelector(".btn")?.click();
+
+                    // Esperamos 50 ms
+                    const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+                    await wait(50);
+
                     const elems = parent.querySelectorAll(".textvalue");
                     const areas = parent.querySelectorAll("textarea");
-                    const inputs = parent.querySelectorAll("input.hiddenelement");
+                    const inputs = parent.querySelectorAll("span.scorevalue input");
 
                     if (!elems.length) return;
 
                     elems[0].textContent = areas[0].textContent = item.item;
                     elems[1].textContent = areas[1].textContent = "No realizado";
-                    elems[2].textContent = "0"; inputs[0].value = "0";
+                    elems[2].textContent = "0"; 
+                    inputs[0].value = "0";
                     elems[3].textContent = areas[2].textContent = "Incompleto/incorrecto";
-                    elems[4].textContent = (item.puntos / 4).toString(); inputs[1].value = (item.puntos / 4).toString();
+                    elems[4].textContent = (item.puntos / 4).toString(); 
+                    inputs[1].value = (item.puntos / 4).toString();
                     elems[5].textContent = areas[3].textContent = "Realizado con errores";
-                    elems[6].textContent = (item.puntos / 2).toString(); inputs[2].value = (item.puntos / 2).toString();
+                    elems[6].textContent = (item.puntos / 2).toString(); 
+                    inputs[2].value = (item.puntos / 2).toString();
                     elems[7].textContent = areas[4].textContent = "Correcto";
-                    elems[8].textContent = item.puntos.toString(); inputs[3].value = item.puntos.toString();
+                    elems[8].textContent = item.puntos.toString(); 
+                    inputs[3].value = item.puntos.toString();
                 });
             },
             args: [csvData]
@@ -147,8 +130,15 @@ document.getElementById("btn-fechas-tarea").addEventListener("click", async () =
             target: { tabId: tab.id },
             func: () => {
                 const y = new Date().getFullYear();
-                document.getElementById("id_duedate_enabled").click();
-                document.getElementById("id_cutoffdate_enabled").click();
+                
+                const dueDateEnabled = document.getElementById("id_duedate_enabled");
+                if(!dueDateEnabled.checked){
+                    dueDateEnabled.click();
+                }
+                const cutOffDateEnabled = document.getElementById("id_cutoffdate_enabled");
+                if(!cutOffDateEnabled.checked){
+                    cutOffDateEnabled.click();
+                }
                 document.getElementById("id_duedate_year").value = y;
                 document.getElementById("id_cutoffdate_year").value = y;
                 document.getElementById("id_duedate_hour").value = 23;
@@ -172,8 +162,17 @@ document.getElementById("btn-fechas-cuestionario").addEventListener("click", asy
             target: { tabId: tab.id },
             func: () => {
                 const y = new Date().getFullYear();
-                document.getElementById("id_timeopen_enabled").click();
-                document.getElementById("id_timeclose_enabled").click();
+                const timeOpenEnabled = document.getElementById("id_timeopen_enabled");
+                if(!timeOpenEnabled.checked){
+                    timeOpenEnabled.click();
+                }
+                const timeCloseEnabled = document.getElementById("id_timeclose_enabled");
+                if(!timeCloseEnabled.checked){
+                    timeCloseEnabled.click();
+                }
+                document.getElementById("id_timeopen_year").value = y;
+                document.getElementById("id_timeopen_hour").value = 0;
+                document.getElementById("id_timeopen_minute").value = 1;
                 document.getElementById("id_timeclose_year").value = y;
                 document.getElementById("id_timeclose_hour").value = 23;
                 document.getElementById("id_timeclose_minute").value = 59;
