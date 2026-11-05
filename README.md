@@ -4,6 +4,8 @@
 
 **Versión actual: 2.2.0** · Manifest V3 · Interfaz en español
 
+**[Instalar Facilitador FP Virtual Aragón desde Chrome Web Store](https://chromewebstore.google.com/detail/facilitador-fpvirtualarag/abpofjlabipkaacmbcffbfcijkmmplkj?hl=es)**
+
 Permite trabajar con rúbricas, configurar fechas, preparar cuestionarios, descargar informes y consultar foros sin leer desde un panel compacto con cinco secciones.
 
 > **Aviso:** es una herramienta independiente, no un complemento oficial de Moodle ni de FP Virtual Aragón. Algunas funciones dependen de la estructura HTML, los permisos docentes y la versión del campus; conviene comprobar los resultados antes de guardar cambios o realizar descargas masivas.
@@ -57,7 +59,15 @@ La consulta usa la sesión abierta en el mismo campus. No abre las discusiones n
 
 Consulta [LEEME-FOROS.txt](LEEME-FOROS.txt) para detalles de funcionamiento y limitaciones.
 
-## Instalación o actualización manual
+## Instalación
+
+### Desde Chrome Web Store (recomendado)
+
+Abre la **[ficha oficial de Facilitador FP Virtual Aragón en Chrome Web Store](https://chromewebstore.google.com/detail/facilitador-fpvirtualarag/abpofjlabipkaacmbcffbfcijkmmplkj?hl=es)** y pulsa **Añadir a Chrome**. Después, recarga las pestañas de Moodle que estuvieran abiertas.
+
+La versión publicada en Chrome Web Store puede diferir de la versión más reciente del código de este repositorio.
+
+### Instalación o actualización manual
 
 1. Descarga el repositorio como ZIP desde **Code → Download ZIP** y descomprímelo, o clónalo con Git.
 2. Abre `chrome://extensions` en Chrome (o `edge://extensions` en Edge).
