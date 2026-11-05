@@ -1,171 +1,156 @@
-# Facilitador-Docente-Moodle
+# Facilitador Docente Moodle
 
-**Facilitador-Docente-Moodle** es una extensión de Chrome diseñada para automatizar y simplificar tareas comunes de evaluación y configuración en la plataforma Moodle. Especialmente útil para docentes que trabajan con rúbricas, cuestionarios y tareas.
+**Extensión para Google Chrome que simplifica tareas de docencia y evaluación en Moodle**, desarrollada pensando especialmente en FP Virtual Aragón.
 
----
+**Versión actual: 2.2.0** · Manifest V3 · Interfaz en español
 
-## Novedad en la versión 2.2.0: interfaz moderna y minimalista
+Permite trabajar con rúbricas, configurar fechas, preparar cuestionarios, descargar informes y consultar foros sin leer desde un panel compacto con cinco secciones.
 
-- Panel rediseñado por completo, con cabecera de marca, navegación compacta con iconos, tarjetas limpias y diseño adaptable tanto al popup como al panel lateral.
-- Icono de la extensión renovado para armonizar con el nuevo diseño, en tamaños 16, 32, 48 y 128 píxeles.
-- Colores, tipografía, espaciados, campos, botones, ayudas y estados visuales unificados; sin dependencias de iconos externos.
-- **No cambian las funciones**: se conservan Visibilidad, Tareas y rúbricas, Cuestionarios, Acciones masivas, Foros y el PDF continuo.
-- Los controles siguen usando los mismos identificadores para evitar incompatibilidades con el código de las acciones.
+> **Aviso:** es una herramienta independiente, no un complemento oficial de Moodle ni de FP Virtual Aragón. Algunas funciones dependen de la estructura HTML, los permisos docentes y la versión del campus; conviene comprobar los resultados antes de guardar cambios o realizar descargas masivas.
 
-**Actualización:** reemplaza la extensión anterior y recarga las páginas de Moodle abiertas.
+## Funciones
 
-## Novedad en la versión 2.1.3: acciones masivas y visibilidad
+| Sección | Qué permite hacer |
+| --- | --- |
+| **Visibilidad** | Ocultar actividades marcadas como ocultas y esconder la campana de notificaciones de la barra superior. Las preferencias se recuerdan localmente. |
+| **Tareas** | Establecer fechas de entrega y límite; marcar todos los criterios de una rúbrica como **No entregado** o **Perfecto**; generar criterios de rúbrica a partir de texto. |
+| **Cuestionarios** | Establecer fechas de apertura y cierre; abrir vistas previas de preguntas; limpiar una vista previa para imprimirla y **descargar un PDF vertical continuo**. |
+| **Acciones masivas** | Solicitar informes Excel de calificaciones y respuestas de los cuestionarios de una sección concreta del curso. |
+| **Foros** | Consultar los contadores de mensajes sin leer, filtrar resultados y acceder a los foros desde el popup o desde el Área personal de Moodle. |
 
-- Retirado **Ajustar ancho de rúbricas** de la interfaz y de la lógica de inyección de CSS.
-- Nueva opción en **Visibilidad**: **Ocultar botón de notificaciones**. Aplica el atributo `hidden` a `.popover-region.popover-region-notifications` y conserva la preferencia entre páginas y sesiones; si el elemento aparece después, también se oculta.
-- Nueva recomendación en **Tareas**: [Moodle Rubric Importer](https://chromewebstore.google.com/detail/moodle-rubric-importer/mibgeikbmhnmicoopgofmcaebkoplpch), una extensión independiente para importar rúbricas de Excel.
-- Corregida la obtención de IDs en **Acciones masivas**: antes se tomaba el `data-id` de cualquier actividad de la sección, por lo que se podía mandar un identificador inválido a `/mod/quiz/report.php`. Ahora se filtran enlaces reales a `/mod/quiz/view.php?id=...`, se validan y se informa de secciones inexistentes o sin cuestionarios. Se envían solicitudes de descarga a Chrome y se indica cuántas se han iniciado. La descarga final depende de la respuesta del Moodle real y de los permisos del navegador.
+### Rúbricas: formato de texto
 
-**Requiere recargar la pestaña de Moodle tras actualizar.** La exportación PDF continuo de 2.1.2 se mantiene.
+En **Tareas → Crear rúbrica desde texto**, escribe un criterio por línea, separado de su puntuación máxima mediante punto y coma:
 
-## Novedad en la versión 2.1.2: PDF continuo, sin saltos entre hojas
-
-El botón **Descargar PDF continuo** genera el cuestionario como **una sola página vertical de altura ajustable**, en vez de paginarlo en hojas A4. Mide el contenido real con los estilos de impresión activos, adapta el ancho al de la página y elimina saltos de página forzados durante la exportación, para reducir recortes. Los estilos especiales se retiran al terminar la descarga.
-
-Para cuestionarios extraordinariamente largos, el formato PDF tiene límites de altura: la extensión reduce ligeramente la escala si es necesario y, si no puede generar una página legible, informa del problema **en lugar de cortar contenido silenciosamente**. No se han cambiado las reglas de limpieza del cuestionario.
-
-Tras actualizar la extensión, **recarga la pestaña de Moodle**.
-
-## Novedad en la versión 2.1.1: cuestionarios preparados y descargados en PDF
-
-En la vista previa de un cuestionario, el botón **Preparar página** elimina la navegación secundaria (`div.container-fluid.tertiary-navigation`) con todos sus elementos hijos, además de los bloques que ya se quitaban. Retira las clases `formulation` y `clearfix` de los `div` que contienen ambas, **sin eliminar los `div` ni su contenido**.
-
-El nuevo botón **Preparar y descargar PDF** ejecuta la misma limpieza y crea un archivo A4 PDF en la carpeta de descargas de Chrome, sin usar una web externa ni instalar otra extensión. Si Chrome tiene activada la opción de preguntar dónde guardar, mostrará el diálogo habitual.
-
-**Permisos nuevos:** `debugger` (utilizado temporalmente para acceder al motor de impresión PDF nativo de Chrome) y `downloads` (para descargar el archivo). Chrome puede mostrar un aviso mientras se genera el PDF; la extensión desconecta el depurador al terminar, incluso si falla la exportación. Al cargar esta versión puede solicitar permiso adicional. Por el alcance del permiso `debugger`, instálala solo si confías en este código.
-
-**Tras instalar o actualizar**, recarga la pestaña de Moodle para activar el nuevo código.
-
-**Limitaciones:** el PDF depende de las reglas de impresión de Moodle/Chrome. La descarga directa solo está disponible en páginas web accesibles y puede fallar si hay otra sesión de depuración o políticas del centro que la bloqueen. Como alternativa puedes usar el botón de preparar y después Imprimir → Guardar como PDF (Ctrl+P). El atajo **Alt+T** también hace la nueva limpieza.
-
-## Novedad en la versión 2.1.0: foros sin leer
-
-Añade una pestaña **Foros** al popup/panel lateral y un resumen al **Área personal**. Reúne el curso, el foro, el número de mensajes sin leer y un enlace para abrirlo. Consulta los índices de Moodle, sin abrir las discusiones ni cambiar su estado de lectura.
-
-- Botón **Consultar foros / Actualizar**, filtro y cancelación.
-- Detección de cursos con paginación, incluidos los ocultos por el usuario en Mis cursos.
-- Direcciones de cursos adicionales cuando la detección no sea completa.
-- Opción de consultar automáticamente al abrir el Área personal (desactivada inicialmente).
-- Avisos para cursos inaccesibles, resultados parciales y foros sin seguimiento.
-- No muestra el texto de cada mensaje; reúne los contadores disponibles en Moodle.
-
-Consulta **LEEME-FOROS.txt** antes de probar o publicar la actualización.
-
-## Funcionalidades principales
-
-### Calificación rápida con rúbricas
-
-Permite aplicar de forma automática una calificación a todos los ítems de una rúbrica desde la página de calificación de tareas.
-
-- **Botón `Perfecto`**: Marca todos los niveles más altos de cada criterio.
-- **Botón `No entregado`**: Marca el primer nivel de cada criterio y deja el comentario *"No entregado."*
-- **Botón `Aplicar rúbrica`**: Inserta una rúbrica completa. El contenido se introduce en el campo de texto correspondiente de la extensión, con el siguiente formato:
-
-```plaintext
-<criterio 1>;<valor máximo que puede alcanzar el criterio>
-<criterio 2>;<valor máximo que puede alcanzar el criterio>
-<criterio 3>;<valor máximo que puede alcanzar el criterio>
+```text
+Contenido;10
+Presentación;5
+Ortografía;5
 ```
 
-Donde:
+Abre primero el editor de creación de la rúbrica en Moodle; después pega los criterios y pulsa **Aplicar rúbrica**. La extensión incorpora también un prompt orientativo para preparar este texto con ayuda de IA.
 
-- `<criterio 1>` es la descripción del criterio (por ejemplo, "Calidad del código").
-- `<valor máximo que puede alcanzar el criterio>` son los puntos máximos que puede alcanzar ese criterio.
-- Los ítems están separados entre sí por saltos de línea.
+Para importar rúbricas **desde ficheros Excel**, recomendamos la extensión independiente [Moodle Rubric Importer](https://chromewebstore.google.com/detail/moodle-rubric-importer/mibgeikbmhnmicoopgofmcaebkoplpch). No forma parte de Facilitador y debe instalarse por separado.
 
-Por ejemplo:
+### Preparación de cuestionarios y PDF
 
-```csv
-Funcionamiento correcto del programa;4
-Uso adecuado del API criptográfico (generación de clave, encriptación y desencriptación);3
-Tratamiento adecuado de excepciones (control de errores durante la encriptación, desencriptación y acceso a fichero);2
-Organización y limpieza del código (legibilidad, comentarios, buenas prácticas);1
+En una vista previa o revisión de cuestionario:
+
+1. Pulsa **Preparar página** para quitar elementos que dificultan la impresión.
+2. Si quieres un archivo, pulsa **Descargar PDF continuo**. La extensión aplica la misma limpieza y genera un PDF de **una sola página vertical**, ajustando su altura al contenido.
+
+La preparación elimina, entre otros, el bloque `div.container-fluid.tertiary-navigation` y sus hijos. También retira las clases `formulation` y `clearfix` de los contenedores correspondientes **sin eliminar las preguntas ni sus respuestas**.
+
+El PDF tiene límites técnicos para documentos extremadamente largos y su resultado depende del contenido y los estilos del campus. Si la exportación falla, prueba **Preparar página → Imprimir → Guardar como PDF** desde Chrome.
+
+### Informes de cuestionarios por sección
+
+Desde la **página principal del curso**, abre **Acciones masivas**, introduce el **nombre exacto de la sección** y pulsa **Descargar informes**.
+
+Se usan los identificadores de los enlaces reales a cuestionarios (`/mod/quiz/view.php?id=...`), en lugar de IDs genéricos de actividades. La extensión solicita informes Excel de calificaciones y respuestas, pero su obtención depende de los permisos de la cuenta, de la estructura del curso y de la respuesta del servidor Moodle. Chrome puede pedir autorización para varias descargas.
+
+### Foros sin leer
+
+En **Foros** puedes consultar los contadores que ofrece Moodle, filtrar cursos y foros, actualizar o cancelar una consulta y añadir enlaces a cursos que no se hayan detectado automáticamente. También hay un resumen en el **Área personal**.
+
+La consulta usa la sesión abierta en el mismo campus. No abre las discusiones ni cambia deliberadamente su estado de lectura. Un foro **sin seguimiento** no debe interpretarse como cero mensajes sin leer; la extensión puede mostrar resultados parciales si el campus no expone todos los contadores.
+
+Consulta [LEEME-FOROS.txt](LEEME-FOROS.txt) para detalles de funcionamiento y limitaciones.
+
+## Instalación o actualización manual
+
+1. Descarga el repositorio como ZIP desde **Code → Download ZIP** y descomprímelo, o clónalo con Git.
+2. Abre `chrome://extensions` en Chrome (o `edge://extensions` en Edge).
+3. Activa **Modo desarrollador**.
+4. Selecciona **Cargar descomprimida** y elige la carpeta que contiene `manifest.json`.
+5. Abre Moodle o recarga las pestañas del campus que ya estuvieran abiertas.
+
+Para actualizar una copia descomprimida, sustituye sus archivos por los de la nueva versión y pulsa **Recargar** en la página de extensiones. Evita dejar activas simultáneamente dos copias de Facilitador.
+
+No necesitas instalar dependencias de Node.js para **usar** la extensión.
+
+## Uso rápido
+
+- **Visibilidad:** activa o desactiva las preferencias en el panel.
+- **Tareas:** abre la configuración o la pantalla de calificación de la tarea antes de usar sus botones.
+- **Cuestionarios:** trabaja desde la edición del cuestionario, el banco de preguntas o la vista previa, según la función.
+- **Acciones masivas:** abre la portada del curso, no la página de un cuestionario individual.
+- **Foros:** mantén una pestaña de Moodle abierta y la sesión iniciada mientras se realiza la consulta.
+
+Los cambios de fechas y rúbricas deben revisarse y guardarse en Moodle cuando corresponda.
+
+### Atajos de teclado
+
+| Atajo | Acción |
+| --- | --- |
+| `Alt + T` | Preparar la vista previa del cuestionario para imprimir. |
+| `Alt + P` | Abrir vistas previas de preguntas, cuando los enlaces estén disponibles. |
+| `Alt + Mayús + 1` | Marcar los criterios de la rúbrica como **No entregado**. |
+| `Alt + Mayús + 2` | Marcar los criterios de la rúbrica como **Perfecto**. |
+
+Los atajos pueden variar o entrar en conflicto con otros atajos del sistema o del navegador. Los de comandos de la extensión se pueden consultar en `chrome://extensions/shortcuts`.
+
+## Permisos y privacidad
+
+La versión 2.2.0 solicita estos permisos en `manifest.json`:
+
+| Permiso | Para qué se utiliza |
+| --- | --- |
+| `scripting` y `activeTab` | Ejecutar acciones en la pestaña activa, como aplicar fechas o preparar cuestionarios. |
+| `storage` | Guardar preferencias de visibilidad y opciones de la consulta de foros. |
+| `sidePanel` | Mostrar la interfaz también como panel lateral. |
+| `debugger` | Acceder temporalmente a `Page.printToPDF` de Chrome para generar el PDF continuo. La conexión se cierra al terminar la operación. |
+| `downloads` | Guardar el PDF y solicitar la descarga de informes Excel. |
+| `<all_urls>` | Permite ejecutar los scripts de contenido en diferentes direcciones web. Es un permiso amplio: conviene usar la extensión solo si se confía en su código y valorar restringirlo a los dominios Moodle necesarios en futuras versiones. |
+
+La herramienta de foros consulta el campus con la sesión ya iniciada y utiliza los contadores que proporciona Moodle. Sus opciones se almacenan localmente; no necesita que introduzcas credenciales en la extensión. Las solicitudes pueden quedar registradas en los logs habituales del servidor.
+
+Chrome puede mostrar un aviso cuando se usa el permiso `debugger` durante la generación del PDF. La disponibilidad de estas funciones puede verse limitada por políticas del navegador o del centro educativo.
+
+## Desarrollo y pruebas
+
+El proyecto utiliza **JavaScript, HTML y CSS** con Chrome Extensions **Manifest V3**. El código de la extensión está en la raíz del repositorio; las pruebas automatizadas están en `tests/`.
+
+Para ejecutarlas necesitas una versión de Node.js compatible con el `package.json` del directorio de pruebas:
+
+```bash
+cd tests
+npm install
+npm test
 ```
 
-Rúbrica generada:
+Las pruebas automatizadas cubren funciones del popup, preparación de cuestionarios, acciones masivas, visibilidad y foros. Parte de las comprobaciones usa páginas y respuestas simuladas: **no sustituye las pruebas manuales en un campus Moodle real**.
 
-![Captura de la rubrica generada](README/rubricas.png)
+## Historial de cambios
 
----
+### 2.2.0 — Rediseño de interfaz
+- Diseño moderno y minimalista: cabecera, navegación con iconos, tarjetas, botones y formularios coherentes.
+- Mejor presentación de las cinco pestañas en popup y panel lateral.
+- Nuevo estilo de iconos y ajustes visuales de la sección Foros.
+- Se mantienen las funciones de la versión 2.1.3.
 
-### Cuestionarios
+### 2.1.3 — Visibilidad y acciones masivas
+- Nueva preferencia para ocultar las notificaciones de la barra superior mediante `hidden`.
+- Retirado el ajuste de ancho de rúbricas.
+- Recomendación de Moodle Rubric Importer para archivos Excel.
+- Validación de los IDs de cuestionarios usados en las descargas masivas.
 
-- **Establecer fechas de cuestionario**: Configura automáticamente las fechas de apertura y cierre.
-- **Vista previa de preguntas**: Abre en nuevas pestañas todas las URLs de vista previa de cuestionarios disponibles.
-- **Preparar test para impresión**: Elimina elementos innecesarios y la navegación secundaria; retira las clases `formulation clearfix` sin borrar su contenido.
-- **Descargar PDF continuo**: Prepara la vista previa y descarga un PDF de una sola página larga, con tamaño ajustado al contenido.
-- **Descargar informes de test**: Busca los enlaces reales de los cuestionarios de la sección y solicita la descarga de informes Excel de notas y respuestas, evitando IDs de actividades no válidos.
+### 2.1.2 — PDF continuo
+- PDF del cuestionario en una sola página vertical, en vez de varias hojas A4.
+- Ajuste de altura y tratamiento de saltos de página.
 
----
+### 2.1.1 — Limpieza y descarga de cuestionarios
+- Eliminación de la navegación secundaria y retirada de clases CSS de formulación sin borrar el contenido.
+- Descarga PDF desde Chrome con los permisos `debugger` y `downloads`.
 
-### Tareas
-
-- **Establecer fechas de entrega y cierre**: Aplica fechas estandarizadas de entrega/cierre en nuevas tareas.
-- **Recurso recomendado**: Moodle Rubric Importer (tercera parte) para importar desde Excel rúbricas que cumplan el formato requerido.
-
----
-
-## Modo de uso
-
-1. Accede a la plataforma Moodle.
-2. Dirígete a la sección o recurso que desees automatizar.
-3. Pulsa el botón correspondiente desde la interfaz del plugin.
-4. (Opcional) Introduce datos si se requieren (por ejemplo, nombre de la sección o CSV para la rúbrica).
-
----
-
-## Seguridad y permisos
-
-Esta extensión utiliza las APIs `chrome.tabs` y `chrome.scripting` para ejecutar código directamente en las páginas activas de Moodle.
-
-La herramienta de foros consulta únicamente el mismo campus con la sesión que ya tienes abierta. No envía los resultados a servicios externos ni guarda los mensajes del alumnado. Guarda localmente la opción de consulta automática y los enlaces de cursos adicionales, separados por dirección del campus e identificador de usuario. La clave de sesión se usa en memoria y nunca se guarda en las opciones. Los resultados permanecen en la memoria de la pestaña y desaparecen al recargarla. Las peticiones pueden generar los registros de acceso normales de Moodle.
-
----
-
-## Instalación
-
-1. Clona o descarga este repositorio.
-2. Abre `chrome://extensions` en tu navegador.
-3. Activa el **modo desarrollador** (arriba a la derecha).
-4. Haz clic en **"Cargar sin empaquetar"** y selecciona la carpeta del proyecto.
-
----
-
-## Requisitos
-
-- Las herramientas originales declaran Moodle 3.9 o superior.
-- El lector de foros contempla el índice clásico y la tabla de actividades de Moodle 5.1; se ha probado con HTML simulado basado en el código oficial. La compatibilidad con el campus real debe verificarse antes de publicar.
-- Permisos de edición o calificación en el curso correspondiente.
-
----
+### 2.1.0 — Foros sin leer
+- Pestaña Foros y resumen en el Área personal.
+- Consulta de contadores, filtros, cursos adicionales y gestión de resultados parciales.
 
 ## Licencia
 
-MIT © Facilitador-Docente-Moodle
+La documentación del proyecto indica **MIT**. Para facilitar su reutilización, se recomienda incluir un archivo `LICENSE` con el texto completo de esa licencia.
 
 ---
 
-## Conclusión
-
-Esta herramienta permite a los docentes ahorrar tiempo en tareas repetitivas como calificar con rúbricas, gestionar fechas y configurar múltiples cuestionarios. Su diseño modular permite futuras ampliaciones como automatización de bancos de preguntas o asistencia en revisión por pares.
-
----
-
-# Capturas de pantalla del plugin
-
-![alt text](README/image.png)
-
-![alt text](README/image-1.png)
-
-![alt text](README/image-2.png)
-## Novedades 2.2.0
-
-- Interfaz renovada y minimalista: cabecera, navegación compacta, tarjetas coherentes, formularios y botones con mayor contraste y espaciado.
-- Mejor presentación de las cinco pestañas en popup y panel lateral; no se han modificado los identificadores ni las acciones de los controles.
-- Ajustes visuales del panel de foros para mantener la misma identidad de diseño.
-- Se mantienen la ocultación de notificaciones, Moodle Rubric Importer, la corrección de acciones masivas y la exportación de PDF continuo.
+Proyecto mantenido por [eagullof](https://github.com/eagullof) · [Repositorio en GitHub](https://github.com/eagullof/Facilitador-Docente-Moodle)
