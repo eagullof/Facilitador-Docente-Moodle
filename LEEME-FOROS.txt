@@ -1,0 +1,100 @@
+FACILITADOR FPVIRTUALARAGON — VERSIÓN 2.1.0
+Actualización de prueba · 9 de octubre de 2026
+
+QUÉ SE HA AÑADIDO
+Una pestaña Foros en la extensión y un panel Foros sin leer en el Área personal.
+Agrupa cursos y foros con su número de mensajes sin leer y enlaces directos.
+No descarga el texto de cada mensaje. Usa los contadores de Moodle y no depende
+del correo electrónico ni de las notificaciones de la campana.
+
+CÓMO PROBARLA EN CHROME O EDGE
+1. Descomprime el ZIP en una carpeta. manifest.json debe estar en esa carpeta.
+2. Abre chrome://extensions (o edge://extensions).
+3. Desactiva temporalmente tu extensión publicada para evitar que se ejecuten
+   dos copias. No necesitas desinstalarla ni borrar sus opciones.
+4. Activa Modo desarrollador, pulsa Cargar sin empaquetar y elige la carpeta
+   que contiene manifest.json.
+5. Entra en Moodle y recarga la pestaña si ya estaba abierta.
+6. Abre Área personal: aparecerá Foros sin leer. Pulsa Consultar foros.
+   También puedes abrir la extensión, elegir Foros y consultar desde allí.
+7. En Opciones puedes activar la consulta automática al abrir el Área personal.
+   Para añadir cursos ausentes, pega una URL por línea:
+   https://tu-campus/course/view.php?id=123
+8. Tras leer mensajes en otra pestaña, pulsa Actualizar para renovar el recuento.
+
+La consulta necesita una pestaña de Moodle abierta con tu sesión iniciada.
+Puedes cerrar el popup mientras consulta: el trabajo continúa en esa pestaña.
+Si cierras o recargas la pestaña de Moodle, la consulta se interrumpe.
+No hay sondeo automático periódico ni avisos con el navegador cerrado.
+
+CÓMO INTERPRETAR EL RESULTADO
+- Un número indica mensajes sin leer, no número de debates.
+- Sin seguimiento: no se ha podido verificar un contador. Puede deberse a las
+  preferencias personales, al ajuste del foro o a diferencias del tema.
+  Nunca se interpreta como cero.
+- Resultado parcial: faltan cursos o alguna consulta ha fallado. Mira los avisos.
+- Si no se obtiene la lista completa por la API, se usan los enlaces disponibles
+  y se indica la limitación. Los cursos adicionales no eliminan ese aviso.
+- Moodle limita la antigüedad de los mensajes que considera no leídos según
+  su configuración. La extensión no puede recuperar un historial ilimitado.
+- El panel utiliza los permisos de tu cuenta; no cambia permisos, suscripciones,
+  calificaciones, ajustes del servidor ni estados de lectura durante la consulta.
+- Hacer clic y abrir un foro/mensaje sí puede cambiar su lectura según Moodle.
+
+PRUEBA RECOMENDADA EN TU CAMPUS ANTES DE PUBLICAR
+A. Elige un curso con mensajes pendientes conocidos y otro sin pendientes.
+B. Comprueba que los recuentos coinciden con los índices de foros de Moodle.
+C. Comprueba un foro sin seguimiento: debe aparecer como Sin seguimiento.
+D. Lee un mensaje, vuelve al panel y pulsa Actualizar: el contador debe cambiar.
+E. Comprueba las herramientas que ya usabas (rúbricas, fechas y cuestionarios).
+F. Si recibes No se reconoce el índice, conserva una captura de ese aviso y de
+   la lista de foros. Evita incluir datos del alumnado al compartirla.
+
+VALIDACIÓN REALIZADA
+- 12 pruebas automatizadas superadas con jsdom: índices clásicos y Moodle 5.1,
+  paginación de cursos, enlaces adicionales, sesión caducada, cambio de cuenta,
+  errores parciales, cancelación, actualización de contadores y textos seguros.
+- Comprobación sintáctica de los archivos JavaScript y rutas del manifiesto.
+- Las pruebas de red usan respuestas simuladas, no datos reales del alumnado.
+- No se ha validado la carga de la extensión en un Chrome real ni el acceso
+  autenticado a FP Virtual Aragón. El entorno no permitió iniciar el navegador
+  de prueba. Esta versión necesita la prueba manual anterior antes de publicarse.
+
+ARCHIVOS DE LA NUEVA FUNCIÓN
+forums-core.js     Detecta configuración, cursos y contadores de Moodle.
+forums-content.js  Ejecuta la consulta en la pestaña y monta el panel del Área personal.
+forums-ui.js       Interfaz compartida entre la página y la extensión.
+forums-popup.js    Conecta la pestaña Foros con la pestaña activa de Moodle.
+
+También se han actualizado manifest.json (versión 2.1.0), popup.html, css/style.css
+y README.md. background.js, content.js, popup.js y las herramientas originales
+se conservan. No se añaden permisos a los que ya tenía la extensión.
+
+PRIVACIDAD
+Solo se consulta el mismo Moodle. Se guardan localmente las opciones de foros,
+separadas por campus y cuenta. No se guardan contraseñas, claves de sesión,
+textos de mensajes, nombres del alumnado ni resultados de las consultas.
+Los resultados de cursos/foros permanecen en la memoria de la pestaña.
+En versiones que no identifican la cuenta, las opciones duran solo esa pestaña.
+La consulta puede aparecer en los registros de acceso habituales de Moodle.
+
+CÓMO VOLVER A TU VERSIÓN PUBLICADA
+Desactiva o elimina la copia sin empaquetar y vuelve a activar la publicada.
+Las opciones de ambas copias son independientes.
+
+PUBLICACIÓN
+El ZIP contiene manifest.json en su raíz. Tras verificarlo en tu campus puedes
+usar el mismo proyecto para actualizar la ficha de tu extensión en la tienda.
+Esta actualización no se ha publicado. Actualiza la descripción y declaración
+de privacidad de tu ficha para reflejar la nueva función y sus opciones locales.
+
+PRUEBAS PARA DESARROLLO
+En la carpeta tests: npm install y después npm test (requiere Node.js compatible
+con jsdom 30.1.2). Estas dependencias son solo de desarrollo; la extensión no usa
+ninguna biblioteca nueva en tiempo de ejecución.
+
+REFERENCIAS TÉCNICAS
+https://github.com/moodle/moodle/blob/MOODLE_405_STABLE/mod/forum/index.php
+https://github.com/moodle/moodle/blob/MOODLE_405_STABLE/course/externallib.php
+https://github.com/moodle/moodle/blob/MOODLE_501_STABLE/public/mod/forum/classes/courseformat/overview.php
+https://developer.chrome.com/docs/extensions/develop/concepts/content-scripts

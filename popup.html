@@ -1,183 +1,253 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Bootstrap 5 CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <title>Gestor de Rúbricas y Tareas Moodle</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <title>Facilitador · FP Virtual Aragón</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
 </head>
-
 <body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="brand-row">
+        <div class="brand-lockup">
+          <div class="brand-mark" aria-hidden="true">F<span class="brand-dot"></span></div>
+          <div>
+            <p class="brand-eyebrow">FP VIRTUAL ARAGÓN</p>
+            <p class="brand-name">Facilitador</p>
+          </div>
+        </div>
+        <span class="version-tag" title="Versión de la extensión">v2.2</span>
+      </div>
+      <p class="brand-subtitle">Herramientas esenciales para tu día a día en Moodle.</p>
+    </header>
 
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <nav class="main-nav" aria-label="Secciones del facilitador">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="tab1-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button"
-                role="tab">Tareas</button>
+          <button class="nav-link active" id="tab0-tab" data-bs-toggle="tab" data-bs-target="#tab0" type="button" role="tab" aria-controls="tab0" aria-selected="true">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+            <span>Visibilidad</span>
+          </button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="tab4-tab" data-bs-toggle="tab" data-bs-target="#tab4" type="button"
-                role="tab">Cuestionarios</button>
+          <button class="nav-link" id="tab1-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="tab1" aria-selected="false">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 3h6M9 9h6m-6 4h6m-6 4h3"/></svg>
+            <span>Tareas</span>
+          </button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="tab3-tab" data-bs-toggle="tab" data-bs-target="#tab3" type="button"
-                role="tab">Acciones masivas</button>
+          <button class="nav-link" id="tab4-tab" data-bs-toggle="tab" data-bs-target="#tab4" type="button" role="tab" aria-controls="tab4" aria-selected="false">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="m9 9 2 2 4-4M9 16h6"/></svg>
+            <span>Cuestionarios</span>
+          </button>
         </li>
-    </ul>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="tab3-tab" data-bs-toggle="tab" data-bs-target="#tab3" type="button" role="tab" aria-controls="tab3" aria-selected="false">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h8m-8 5h8m-8 5h8M16 7h4m-2-2v4M16 17h4m-2-2v4"/></svg>
+            <span>Masivas</span>
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="tab-forums-tab" data-bs-toggle="tab" data-bs-target="#tab-forums" type="button" role="tab" aria-controls="tab-forums" aria-selected="false">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5c-1.3 0-2.5-.3-3.6-.9L4 20l1.8-4.7A7.5 7.5 0 1 1 20 11.5Z"/><path d="M8.5 11.5h7"/></svg>
+            <span>Foros</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
 
-    <div class="tab-content mt-3" id="myTabContent">
-        
-        <div class="tab-pane fade show active" id="tab1" role="tabpanel">
-
-            <h3>Establecer fechas
-                <button type="button" class="btn btn-outline-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Debes la página de configuración de la tarea o cuestionario">
-                    <i class="bi bi-info-circle-fill"></i>
-                </button>
-            </h3>
-
-            <p>Activa y configura el año y la hora de la "Fecha de entrega" y "Fecha límite" de la tarea.</p>
-
-            <div class="button-group">
-                <button class="action-button btn-verde" id="btn-fechas-tarea">Establecer fechas</button>
-            </div>
-
-
-            <h3>Calificar rúbrica
-                <button type="button" class="btn btn-outline-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Debes estar en la página de corrección de la tarea">
-                    <i class="bi bi-info-circle-fill"></i>
-                </button>
-            </h3>
-
-            <div class="button-group">
-                <button class="action-button btn-rojo" id="btn-no-entregado">No entregado</button>
-                <button class="action-button btn-verde" id="btn-perfecto">Perfecto</button>
-            </div>
-
-            <h3>Importar rúbrica
-                <button type="button" class="btn btn-outline-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Debes estar en la página de creación de nueva rúbrica">
-                    <i class="bi bi-info-circle-fill"></i>
-                </button>
-            </h3>
-
-            <div class="form-container">
-                <textarea id="input-rubrica" rows="5" placeholder="Por ejemplo:
-Item de califición 1;5
-Item de califición 2;3
-Item de califición 3;2"></textarea>
-                <button class="action-button btn-verde" id="btn-aplicar-rubrica">Aplicar</button>
-            </div>
-
-            
+    <main class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="tab0" role="tabpanel" aria-labelledby="tab0-tab" tabindex="0">
+        <div class="section-heading">
+          <p class="section-eyebrow">PREFERENCIAS</p>
+          <h1>Visibilidad</h1>
+          <p>Adapta la vista de Moodle a lo que necesitas.</p>
         </div>
-
-        <div class="tab-pane fade" id="tab3" role="tabpanel">
-
-            <label for="input-nombre-test">Nombre de la sección con los cuestionarios:</label>
-
-            <textarea id="input-nombre-test" rows="1" placeholder="Por ejemplo: Exámen JULIO"></textarea>
-
-            <h3>Modificar cuestionarios de la sección indicada
-                <button type="button" class="btn btn-outline-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Debes estar en la página principal del curso y rellenar el nombre exacto de la sección donde se encuentran los cuestionarios.">
-                    <i class="bi bi-info-circle-fill"></i>
-                </button>
-            </h3>
-            
-            <p>Aplica fechas y contraseñas a todos los cuestionarios de una sección.</p>
-
-            <label for="quizzpass">Contraseña de los cuestionarios:</label>
-            <input type="text" id="quizzpass" value="" class="form-control">
-            
-            <div class="form-container">
-                <div class="d-flex flex-wrap gap-1 mb-3 mt-3">
-                    <label for="fecha-apertura-cbx">Fecha de apertura:</label>
-                    <input type="checkbox" id="fecha-apertura-cbx" name="fecha-apertura-cbx" checked
-                        class="form-check-input">
-                </div>
-                <fecha-element name-prefix="apertura"
-                    default-hour="9"
-                    default-minute="0">
-                </fecha-element>
+        <section class="feature-card" aria-labelledby="visibilidad-title">
+          <div class="feature-title-row"><h2 id="visibilidad-title">Elementos de la página</h2></div>
+          <div class="setting-row">
+            <div class="setting-copy">
+              <label for="toggle-ocultar" class="setting-title">Ocultar elementos ocultos</label>
+              <p>Quita de la vista las actividades ocultas.</p>
             </div>
-
-            <div class="form-container">
-                <div class="d-flex flex-wrap gap-1 mb-3">
-                    <label for="fecha-cierre-cbx">Fecha de cierre:</label>
-                    <input type="checkbox" id="fecha-cierre-cbx" checked class="form-check-input">
-                </div>
-                <fecha-element name-prefix="cierre"
-                    default-hour="23"
-                    default-minute="59">
-                </fecha-element>
+            <label class="switch" title="Ocultar elementos ocultos">
+              <input type="checkbox" id="toggle-ocultar" aria-label="Ocultar elementos ocultos">
+              <span class="slider" aria-hidden="true"></span>
+            </label>
+          </div>
+          <div class="setting-row">
+            <div class="setting-copy">
+              <label for="toggle-notificaciones" class="setting-title">Ocultar notificaciones</label>
+              <p>Esconde la campana de la barra superior.</p>
             </div>
+            <label class="switch" title="Ocultar botón de notificaciones">
+              <input type="checkbox" id="toggle-notificaciones" aria-label="Ocultar botón de notificaciones">
+              <span class="slider" aria-hidden="true"></span>
+            </label>
+          </div>
+        </section>
+        <p class="context-note">Las preferencias se guardan y se aplican al navegar por Moodle.</p>
+      </div>
 
-            <div class="button-group">
-                <button class="action-button btn-verde" id="btn-modificar-cuestionarios">Modificar
-                    cuestionarios</button>
-            </div>
-
-            <h3>Descargar cuestionarios de la sección indicada
-                <button type="button" class="btn btn-outline-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Debes estar en la página principal del curso y rellenar el nombre exacto de la sección donde se encuentran los cuestionarios.">
-                    <i class="bi bi-info-circle-fill"></i>
-                </button>
-            </h3>
-
-            <p>Descarga automáticamente los informes en formato Excel de los cuestionarios de una sección.</p>
-
-            <div class="button-group">
-                <button class="action-button btn-verde" id="btn-descargar-test">Descargar cuestionarios masivos</button>
-            </div>
-
+      <div class="tab-pane fade" id="tab1" role="tabpanel" aria-labelledby="tab1-tab" tabindex="0">
+        <div class="section-heading">
+          <p class="section-eyebrow">EVALUACIÓN</p>
+          <h1>Tareas y rúbricas</h1>
+          <p>Configura entregas y agiliza la evaluación.</p>
         </div>
+        <section class="feature-card" aria-labelledby="tareas-fechas-title">
+          <div class="feature-title-row">
+            <h2 id="tareas-fechas-title">Fechas de la tarea</h2>
+            <button type="button" class="info-button" aria-label="Ayuda: fechas de la tarea" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Abre la página de configuración de la tarea antes de establecer las fechas.">i</button>
+          </div>
+          <p class="feature-description">Establece la fecha de entrega y la fecha límite de una tarea.</p>
+          <div class="date-picker-group">
+            <div class="form-group"><label for="input-duedate-tarea">Entrega</label><input type="date" id="input-duedate-tarea"></div>
+            <div class="form-group"><label for="input-cutoffdate-tarea">Límite</label><input type="date" id="input-cutoffdate-tarea"></div>
+          </div>
+          <div class="button-group"><button type="button" class="action-button btn-primary-action" id="btn-fechas-tarea">Aplicar fechas</button></div>
+        </section>
 
-        <div class="tab-pane fade show" id="tab4" role="tabpanel">
+        <section class="feature-card" aria-labelledby="calificar-title">
+          <div class="feature-title-row">
+            <h2 id="calificar-title">Calificar rúbrica</h2>
+            <button type="button" class="info-button" aria-label="Ayuda: calificar rúbrica" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Abre la página de corrección de la tarea antes de calificar.">i</button>
+          </div>
+          <p class="feature-description">Marca rápidamente todos los criterios de la rúbrica.</p>
+          <div class="button-group button-group-split">
+            <button type="button" class="action-button btn-danger-subtle" id="btn-no-entregado">No entregado</button>
+            <button type="button" class="action-button btn-primary-action" id="btn-perfecto">Perfecto</button>
+          </div>
+        </section>
 
-            <h3>Establecer fechas
-                <button type="button" class="btn btn-outline-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Debes la página de configuración de la tarea o cuestionario">
-                    <i class="bi bi-info-circle-fill"></i>
-                </button>
-            </h3>
+        <section class="feature-card" aria-labelledby="importar-title">
+          <div class="feature-title-row">
+            <h2 id="importar-title">Crear rúbrica desde texto</h2>
+            <button type="button" class="info-button" aria-label="Ayuda: importar rúbrica" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Abre la página de creación de una nueva rúbrica antes de aplicar el texto.">i</button>
+          </div>
+          <p class="feature-description">Escribe un criterio por línea seguido de punto y coma y su puntuación.</p>
+          <div class="form-container">
+            <label for="input-rubrica" class="sr-only">Criterios y puntos</label>
+            <textarea id="input-rubrica" rows="4" placeholder="Contenido;10&#10;Presentación;5&#10;Ortografía;5"></textarea>
+            <div class="button-group"><button type="button" class="action-button btn-primary-action" id="btn-aplicar-rubrica">Aplicar rúbrica</button></div>
+            <details class="inline-disclosure">
+              <summary>Generar el texto con IA <span class="disclosure-caret" aria-hidden="true"></span></summary>
+              <div class="disclosure-content">
+                <p>Utiliza este prompt como punto de partida para generar el formato compatible.</p>
+                <textarea id="prompt-ia-text" readonly rows="10">Actúa como un experto docente. Crea una rúbrica formateada para mi extensión de Moodle.
 
-            <p>Activa y configura el año y la hora de las fechas de "Abrir cuestionario" y "Cerrar cuestionario"</p>
+REGLAS DE FORMATO (ESTRICTAS):
+1. Cada criterio debe ir en una sola línea.
+2. Estructura: Criterio;puntuaciónMáxima
+3. Separa criterios usando saltos de línea (sin espacios antes/después).
 
-            <div class="button-group">
-                <button class="action-button btn-verde" id="btn-fechas-cuestionario">Establecer fechas</button>
-            </div>
+ESTRUCTURA ESPERADA:
+Criterio 1;puntosMax
+Criterio 2;puntosMax
+Criterio 3;puntosMax
 
-            <h3>Preparar cuestionarios para imprimir 
-                <button type="button" class="btn btn-outline-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Debes estar en una vista previa de un cuestionario">
-                    <i class="bi bi-info-circle-fill"></i>
-                </button>
-            </h3>
+EJEMPLO REAL (20 pts):
+Estructura;5
+Contenido;10
+Ortografía;5
 
-            <p>Elimina elementos innecesarios de la página de revisión del intento para facilitar su impresión.</p>
+INSTRUCCIONES PARA LA RÚBRICA:
+- TAREA O TEMA: [Escribe aquí el tema]
+- PUNTUACIÓN TOTAL: [Ej. 10, 20 o 100]
+- NÚMERO DE CRITERIOS: [Ej. 4 criterios]
 
-            <div class="button-group">
-                <button class="action-button btn-verde" id="btn-preparar-test">Preparar cuestionarios para
-                    imprimir</button>
-            </div>
+Genera únicamente la cadena de texto limpia.</textarea>
+                <div class="button-group"><button type="button" class="action-button btn-secondary-action" id="btn-copiar-prompt">Copiar prompt</button></div>
+              </div>
+            </details>
+          </div>
+        </section>
 
-            <h3>Vista previa de preguntas
-                <button type="button" class="btn btn-outline-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Debes estar en el banco de preguntas con una categoría seleccionada">
-                    <i class="bi bi-info-circle-fill"></i>
-                </button>
-            </h3>
+        <section class="feature-card recommendation-card" aria-labelledby="importer-title">
+          <div class="recommendation-kicker">RECURSO RECOMENDADO</div>
+          <div class="feature-title-row"><h2 id="importer-title">Importar rúbricas desde Excel</h2><span class="external-symbol" aria-hidden="true">↗</span></div>
+          <p class="feature-description">Con la extensión independiente <strong>Moodle Rubric Importer</strong> puedes cargar criterios desde Excel en el editor de rúbricas de Moodle.</p>
+          <a class="action-button btn-secondary-action external-action" href="https://chromewebstore.google.com/detail/moodle-rubric-importer/mibgeikbmhnmicoopgofmcaebkoplpch" target="_blank" rel="noopener noreferrer">Ver Moodle Rubric Importer <span aria-hidden="true">↗</span></a>
+          <p class="fine-print">Comprueba el formato del archivo y su compatibilidad antes de guardar los cambios.</p>
+        </section>
+      </div>
 
-            <p>Abre en nuevas pestañas todas las URLs de vista previa de cuestionarios disponibles.</p>
-
-            <div class="button-group">
-                <button class="action-button btn-verde" id="btn-vista-previa">Vista previa de preguntas</button>
-            </div>
-
+      <div class="tab-pane fade" id="tab4" role="tabpanel" aria-labelledby="tab4-tab" tabindex="0">
+        <div class="section-heading">
+          <p class="section-eyebrow">HERRAMIENTAS</p>
+          <h1>Cuestionarios</h1>
+          <p>Configura fechas, prepara impresiones y revisa preguntas.</p>
         </div>
-    </div>
+        <section class="feature-card" aria-labelledby="quiz-fechas-title">
+          <div class="feature-title-row">
+            <h2 id="quiz-fechas-title">Fechas del cuestionario</h2>
+            <button type="button" class="info-button" aria-label="Ayuda: fechas del cuestionario" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Abre la página de configuración del cuestionario antes de establecer las fechas.">i</button>
+          </div>
+          <p class="feature-description">Configura cuándo se abre y cuándo se cierra.</p>
+          <div class="date-picker-group">
+            <div class="form-group"><label for="input-duedate-cuestionario">Apertura</label><input type="date" id="input-duedate-cuestionario"></div>
+            <div class="form-group"><label for="input-cutoffdate-cuestionario">Cierre</label><input type="date" id="input-cutoffdate-cuestionario"></div>
+          </div>
+          <div class="button-group"><button type="button" class="action-button btn-primary-action" id="btn-fechas-cuestionario">Aplicar fechas</button></div>
+        </section>
+        <section class="feature-card" aria-labelledby="imprimir-title">
+          <div class="feature-title-row">
+            <h2 id="imprimir-title">Preparar para imprimir</h2>
+            <button type="button" class="info-button" aria-label="Ayuda: preparar cuestionario" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Abre una vista previa o revisión de intento del cuestionario antes de preparar la página.">i</button>
+          </div>
+          <p class="feature-description">Elimina controles innecesarios y deja el contenido listo para imprimir o guardar.</p>
+          <div class="button-group button-group-stacked">
+            <button type="button" class="action-button btn-secondary-action" id="btn-preparar-test">Preparar página</button>
+            <button type="button" class="action-button btn-primary-action" id="btn-descargar-pdf-cuestionario">Descargar PDF continuo</button>
+          </div>
+          <p class="fine-print">PDF en una única página vertical, con altura automática.</p>
+          <p id="estado-pdf-cuestionario" class="status-message" role="status" aria-live="polite"></p>
+        </section>
+        <section class="feature-card" aria-labelledby="vista-previa-title">
+          <div class="feature-title-row">
+            <h2 id="vista-previa-title">Vista previa de preguntas</h2>
+            <button type="button" class="info-button" aria-label="Ayuda: vista previa de preguntas" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Abre el banco de preguntas con una categoría seleccionada para previsualizarlas.">i</button>
+          </div>
+          <p class="feature-description">Abre en pestañas nuevas las vistas previas de las preguntas disponibles.</p>
+          <div class="button-group"><button type="button" class="action-button btn-secondary-action" id="btn-vista-previa">Abrir vistas previas</button></div>
+        </section>
+      </div>
 
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="components/fecha-element.js"></script>
-    <script src="popup.js"></script>
+      <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab3-tab" tabindex="0">
+        <div class="section-heading">
+          <p class="section-eyebrow">EXPORTACIÓN</p>
+          <h1>Acciones masivas</h1>
+          <p>Descarga varios informes de cuestionarios a la vez.</p>
+        </div>
+        <section class="feature-card" aria-labelledby="descarga-masiva-title">
+          <div class="feature-title-row">
+            <h2 id="descarga-masiva-title">Informes por sección</h2>
+            <button type="button" class="info-button" aria-label="Ayuda: descargas masivas" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Abre la página principal del curso e introduce el nombre exacto de la sección que contiene los cuestionarios.">i</button>
+          </div>
+          <p class="feature-description">Descarga los informes de calificaciones y respuestas en Excel de todos los cuestionarios de la sección.</p>
+          <div class="form-container">
+            <label for="input-nombre-test">Nombre de la sección</label>
+            <textarea id="input-nombre-test" rows="1" placeholder="Por ejemplo: Examen de julio"></textarea>
+            <div class="button-group"><button type="button" class="action-button btn-primary-action" id="btn-descargar-test">Descargar informes</button></div>
+          </div>
+          <p id="estado-descarga-test" class="status-message" role="status" aria-live="polite"></p>
+        </section>
+        <p class="context-note">Debes estar en la página principal del curso de Moodle. Chrome puede solicitar permiso para varias descargas.</p>
+      </div>
+
+      <div class="tab-pane fade" id="tab-forums" role="tabpanel" aria-labelledby="tab-forums-tab" tabindex="0">
+        <div id="fp-forums-popup"></div>
+      </div>
+    </main>
+    <footer class="app-footer"><span class="footer-dot" aria-hidden="true"></span> Diseñado para FP Virtual Aragón <span class="footer-separator">·</span> v2.2.0</footer>
+  </div>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="components/fecha-element.js"></script>
+  <script src="popup.js"></script>
+  <script src="forums-ui.js"></script>
+  <script src="forums-popup.js"></script>
 </body>
-
 </html>

@@ -1,24 +1,65 @@
 {
   "manifest_version": 3,
-  "name": "Facilitador Docente Moodle",
-  "version": "1.0",
-  "description": "Facilita la tarea del docente en la plataforma de moodle.",
+  "name": "Facilitador fpvirtualaragon",
+  "version": "2.2.0",
+  "description": "Herramientas de tareas, rúbricas y consulta de foros sin leer para Moodle y FPVIRTUALARAGON.",
   "permissions": [
     "scripting",
     "activeTab",
-    "sidePanel"
+    "storage",
+    "sidePanel",
+    "debugger",
+    "downloads"
   ],
-  "action": {
-    "default_title": "Abrir Facilitador",
-    "default_icon": "images/estrella.png"
-  },
   "host_permissions": [
     "<all_urls>"
   ],
   "side_panel": {
     "default_path": "popup.html"
   },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/fp-16.png",
+      "32": "images/fp-32.png",
+      "48": "images/fp-48.png",
+      "128": "images/fp-128.png"
+    }
+  },
   "background": {
     "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js",
+        "forums-core.js",
+        "forums-ui.js",
+        "forums-content.js"
+      ]
+    }
+  ],
+  "commands": {
+    "marcar-no-entregado": {
+      "suggested_key": {
+        "default": "Alt+Shift+1"
+      },
+      "description": "Marcar tarea como No Entregado"
+    },
+    "marcar-perfecto": {
+      "suggested_key": {
+        "default": "Alt+Shift+2"
+      },
+      "description": "Marcar tarea como Perfecto"
+    }
+  },
+  "icons": {
+    "16": "images/fp-16.png",
+    "32": "images/fp-32.png",
+    "48": "images/fp-48.png",
+    "128": "images/fp-128.png"
   }
 }
