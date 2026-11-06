@@ -1,4 +1,4 @@
-/* Facilitador 2.2 · Diseño minimalista para el popup y el panel lateral */
+/* Facilitador 2.3 · Diseño minimalista para el popup y el panel lateral */
 :root {
   color-scheme: light;
   --surface: #fff;
@@ -22,7 +22,7 @@ body {
   background: var(--canvas); color: var(--ink);
   -webkit-font-smoothing: antialiased;
 }
-button,input,textarea{font:inherit}
+button,input,textarea,select{font:inherit}
 button{cursor:pointer}
 a{color:var(--primary)}
 .app-shell{width:100%;min-width:360px;max-width:700px;margin:0 auto}
@@ -37,7 +37,7 @@ a{color:var(--primary)}
 .version-tag{display:inline-flex;align-items:center;justify-content:center;min-width:42px;padding:4px 8px;border-radius:8px;background:#f0f2f7;color:#69758a;font-size:11px;font-weight:700}
 .brand-subtitle{font-size:12px;color:var(--muted);margin:12px 0 0}
 .main-nav{padding:10px 14px 0;background:var(--surface);border-bottom:1px solid var(--line)}
-.main-nav .nav-tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;border:0;margin:0;padding:0;list-style:none}
+.main-nav .nav-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;border:0;margin:0;padding:0;list-style:none}
 .main-nav .nav-item{min-width:0;margin:0}
 .main-nav .nav-link{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;width:100%;min-width:0;min-height:61px;margin:0;padding:9px 1px 11px;background:transparent;border:0;border-bottom:2px solid transparent;border-radius:9px 9px 0 0;color:#758198;font-size:10.5px;font-weight:650;letter-spacing:-.015em;line-height:1.15;transition:color .18s,background-color .18s,border-color .18s;white-space:normal}
 .main-nav .nav-link svg{width:19px;height:19px;flex:none}
@@ -74,12 +74,12 @@ a{color:var(--primary)}
 .form-group{display:flex;flex-direction:column;gap:7px;min-width:0}
 label:not(.switch){color:#43516a;font-size:11.5px;font-weight:670}
 .date-picker-group{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;margin:0 0 14px}
-textarea,input[type="date"]{display:block;width:100%;min-width:0;padding:10px 11px;border:1px solid #d9e0ec;border-radius:9px;outline:0;background:#fff;color:var(--ink);font-size:12.5px;transition:border-color .18s,box-shadow .18s}
+textarea,input[type="date"],input[type="text"],select{display:block;width:100%;min-width:0;padding:10px 11px;border:1px solid #d9e0ec;border-radius:9px;outline:0;background:#fff;color:var(--ink);font-size:12.5px;transition:border-color .18s,box-shadow .18s}
 textarea::placeholder{color:#9aa4b4}
 textarea{min-height:82px;resize:vertical;line-height:1.6;margin:0}
 textarea[rows="1"]{min-height:43px;height:43px;resize:none}
 input[type="date"]{height:42px;padding:8px 9px;font-size:12px}
-textarea:focus,input[type="date"]:focus{border-color:var(--primary);box-shadow:var(--focus-ring)}
+textarea:focus,input[type="date"]:focus,input[type="text"]:focus,select:focus{border-color:var(--primary);box-shadow:var(--focus-ring)}
 .form-container{display:flex;flex-direction:column;gap:10px}
 .button-group{display:flex;gap:9px;margin:0}
 .button-group-split>.action-button{flex:1;min-width:0}
@@ -126,3 +126,29 @@ textarea:focus,input[type="date"]:focus{border-color:var(--primary);box-shadow:v
 @media(min-width:550px){.tab-content{padding:26px 24px 10px}.app-header{padding:25px 28px 20px}.main-nav{padding-left:24px;padding-right:24px}.feature-card{padding:21px 22px}}
 @media(max-width:389px){.main-nav{padding-left:7px;padding-right:7px}.tab-content{padding-left:12px;padding-right:12px}.feature-card{padding:16px 13px}.app-header{padding-left:16px;padding-right:16px}.main-nav .nav-link{font-size:9.7px}.date-picker-group{gap:7px}input[type="date"]{font-size:11px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important}}
+
+/* Corregir: seis pestañas legibles y formularios de plantillas */
+@media(min-width:500px){.main-nav .nav-tabs{grid-template-columns:repeat(6,minmax(0,1fr))}}
+#tab-corregir .form-group{gap:6px}
+#feedback-title-input,#feedback-select{height:42px}
+#feedback-body-input{min-height:116px;white-space:pre-wrap}
+.feedback-manage-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.feedback-manage-actions .action-button{padding:9px 6px;font-size:11.5px;min-height:39px}
+#feedback-write{margin-top:2px}
+#feedback-status[data-state="error"]{color:#a93f49}
+#feedback-status[data-state="ok"]{color:var(--success)}
+
+/* Tareas: importador CSV integrado */
+.csv-format-tag{flex:none;font-size:9px;letter-spacing:.05em;font-weight:800;color:#4059a2;background:#eef2ff;border-radius:6px;padding:5px 7px;white-space:nowrap}
+input[type="file"]{width:100%;max-width:100%;min-width:0;font-size:12px;color:var(--muted);padding:9px 10px;border:1px dashed #bdc9dd;border-radius:9px;background:#fafbff;cursor:pointer}
+input[type="file"]:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+input[type="file"]::file-selector-button{margin-right:10px;padding:7px 10px;border:1px solid #d8dfed;background:#fff;color:#354965;border-radius:7px;font-weight:650;cursor:pointer}
+.csv-preview:empty{display:none}
+.csv-preview{padding:11px 12px;border-radius:9px;border:1px solid #e1e8f3;background:#f8faff}
+.csv-preview-heading{margin:0 0 7px;font-size:12px;font-weight:750;color:var(--ink)}
+.csv-preview-list{margin:0;padding-left:17px;font-size:11.5px;line-height:1.65;color:var(--muted);overflow-wrap:anywhere}
+.csv-example{font:11px/1.8 ui-monospace,SFMono-Regular,Consolas,monospace;background:#f1f4fa;border-radius:8px;padding:9px;overflow-wrap:anywhere;color:#455570;margin-bottom:11px}
+#estado-rubrica-csv[data-state="error"]{color:#a93f49}
+#estado-rubrica-csv[data-state="ok"]{color:var(--success)}
+#estado-rubrica-csv[data-state="busy"]{color:var(--primary)}
+@media(max-width:389px){.csv-format-tag{font-size:8px;padding:5px}}

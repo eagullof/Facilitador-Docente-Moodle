@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Facilitador fpvirtualaragon",
-  "version": "2.2.0",
-  "description": "Herramientas de tareas, rúbricas y consulta de foros sin leer para Moodle y FPVIRTUALARAGON.",
+  "version": "2.3.2",
+  "description": "Herramientas de tareas, rúbricas (texto y CSV), corrección, cuestionarios y foros para Moodle y FP Virtual Aragón.",
   "permissions": [
     "scripting",
     "activeTab",

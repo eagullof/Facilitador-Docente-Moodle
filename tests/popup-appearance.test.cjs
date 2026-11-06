@@ -8,8 +8,8 @@ const html = read('popup.html');
 const css = read('css/style.css');
 const manifest = JSON.parse(read('manifest.json'));
 
-test('Interfaz renovada con cinco pestañas, navegación accesible y sin iconos remotos', () => {
-  for (const id of ['tab0-tab','tab1-tab','tab4-tab','tab3-tab','tab-forums-tab']) {
+test('Interfaz renovada con seis pestañas, navegación accesible y sin iconos remotos', () => {
+  for (const id of ['tab0-tab','tab1-tab','tab-corregir-tab','tab4-tab','tab3-tab','tab-forums-tab']) {
     assert.match(html, new RegExp(`id="${id}"`));
   }
   assert.match(html, /role="tablist"/);
@@ -32,7 +32,7 @@ test('Se mantienen todos los controles operativos, sin duplicar IDs', () => {
     'fp-forums-popup']) assert.ok(ids.includes(id),id);
   assert.doesNotMatch(html, /toggle-rubrica-ancho/);
   assert.match(html, /Moodle Rubric Importer/);
-  assert.equal(manifest.version, '2.2.0');
+  assert.equal(manifest.version, '2.3.2');
   for (const size of ['16','32','48','128']) {
     assert.ok(manifest.action.default_icon[size]);
     assert.ok(fs.existsSync(path.join(base, manifest.action.default_icon[size])));

@@ -118,7 +118,7 @@ test('Interfaz: elimina ancho de rúbricas, añade importador y el interruptor d
   assert.doesNotMatch(html,/toggle-rubrica-ancho/);
   assert.doesNotMatch(js,/ajustarRubricaAncho|toggleRubricaAnchoCSS/);
   assert.doesNotMatch(content,/ajustarRubricaAncho|toggleRubricaAnchoCSS/);
-  assert.equal(manifest.version,'2.2.0');
+  assert.equal(manifest.version,'2.3.2');
 });
 
 test('Acciones masivas: el botón solicita solo informes de quizzes y muestra recuento al usuario',async () => {

@@ -180,5 +180,5 @@ test('El panel incluye ambos botones y el manifiesto declara los permisos necesa
   assert.ok(manifest.permissions.includes('debugger'));
   assert.ok(manifest.permissions.includes('downloads'));
   assert.match(html, /Descargar PDF continuo/);
-  assert.equal(manifest.version, '2.2.0');
+  assert.equal(manifest.version, '2.3.2');
 });

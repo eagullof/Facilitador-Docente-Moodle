@@ -19,7 +19,7 @@
             <p class="brand-name">Facilitador</p>
           </div>
         </div>
-        <span class="version-tag" title="Versión de la extensión">v2.2</span>
+        <span class="version-tag" title="Versión de la extensión">v2.3.2</span>
       </div>
       <p class="brand-subtitle">Herramientas esenciales para tu día a día en Moodle.</p>
     </header>
@@ -36,6 +36,12 @@
           <button class="nav-link" id="tab1-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="tab1" aria-selected="false">
             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 3h6M9 9h6m-6 4h6m-6 4h3"/></svg>
             <span>Tareas</span>
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="tab-corregir-tab" data-bs-toggle="tab" data-bs-target="#tab-corregir" type="button" role="tab" aria-controls="tab-corregir" aria-selected="false">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6"/><path d="M20 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg>
+            <span>Corregir</span>
           </button>
         </li>
         <li class="nav-item" role="presentation">
@@ -95,8 +101,8 @@
       <div class="tab-pane fade" id="tab1" role="tabpanel" aria-labelledby="tab1-tab" tabindex="0">
         <div class="section-heading">
           <p class="section-eyebrow">EVALUACIÓN</p>
-          <h1>Tareas y rúbricas</h1>
-          <p>Configura entregas y agiliza la evaluación.</p>
+          <h1>Tareas</h1>
+          <p>Configura fechas y prepara nuevas rúbricas.</p>
         </div>
         <section class="feature-card" aria-labelledby="tareas-fechas-title">
           <div class="feature-title-row">
@@ -109,18 +115,6 @@
             <div class="form-group"><label for="input-cutoffdate-tarea">Límite</label><input type="date" id="input-cutoffdate-tarea"></div>
           </div>
           <div class="button-group"><button type="button" class="action-button btn-primary-action" id="btn-fechas-tarea">Aplicar fechas</button></div>
-        </section>
-
-        <section class="feature-card" aria-labelledby="calificar-title">
-          <div class="feature-title-row">
-            <h2 id="calificar-title">Calificar rúbrica</h2>
-            <button type="button" class="info-button" aria-label="Ayuda: calificar rúbrica" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Abre la página de corrección de la tarea antes de calificar.">i</button>
-          </div>
-          <p class="feature-description">Marca rápidamente todos los criterios de la rúbrica.</p>
-          <div class="button-group button-group-split">
-            <button type="button" class="action-button btn-danger-subtle" id="btn-no-entregado">No entregado</button>
-            <button type="button" class="action-button btn-primary-action" id="btn-perfecto">Perfecto</button>
-          </div>
         </section>
 
         <section class="feature-card" aria-labelledby="importar-title">
@@ -166,6 +160,32 @@ Genera únicamente la cadena de texto limpia.</textarea>
           </div>
         </section>
 
+        <section class="feature-card" aria-labelledby="csv-rubrica-title">
+          <div class="feature-title-row">
+            <h2 id="csv-rubrica-title">Importar rúbrica desde CSV</h2>
+            <span class="csv-format-tag">NIVELES PERSONALIZADOS</span>
+          </div>
+          <p class="feature-description">Importa criterios, descripciones y puntuaciones de cada nivel desde un archivo CSV. Abre primero el editor de rúbricas de Moodle.</p>
+          <div class="form-container">
+            <div class="form-group">
+              <label for="input-rubrica-csv">Archivo CSV</label>
+              <input type="file" id="input-rubrica-csv" accept=".csv,text/csv">
+            </div>
+            <div id="vista-rubrica-csv" class="csv-preview" aria-label="Vista previa de criterios y niveles"></div>
+            <div class="button-group"><button type="button" id="btn-importar-rubrica-csv" class="action-button btn-primary-action" disabled>Importar rúbrica en Moodle</button></div>
+            <p id="estado-rubrica-csv" class="status-message" role="status" aria-live="polite"></p>
+            <details class="inline-disclosure">
+              <summary>Formato del archivo y ejemplo <span class="disclosure-caret" aria-hidden="true"></span></summary>
+              <div class="disclosure-content">
+                <p>Una fila por cada nivel. Columnas: <strong>Criterio; Nivel; Descripción; Puntuación</strong>. Admite CSV separado por punto y coma o coma, incluidos campos entrecomillados.</p>
+                <div class="csv-example" aria-label="Ejemplo de CSV">Contenido;Inicial;No realizado;0<br>Contenido;Correcto;Trabajo completo;4<br>Presentación;Excelente;Muy claro;2</div>
+                <div class="button-group"><button type="button" id="btn-ejemplo-rubrica-csv" class="action-button btn-secondary-action">Descargar CSV de ejemplo</button></div>
+              </div>
+            </details>
+          </div>
+          <p class="fine-print">Solo rellena campos: comprueba el orden de los niveles y guarda manualmente en Moodle. Las filas sobrantes no se eliminan.</p>
+        </section>
+
         <section class="feature-card recommendation-card" aria-labelledby="importer-title">
           <div class="recommendation-kicker">RECURSO RECOMENDADO</div>
           <div class="feature-title-row"><h2 id="importer-title">Importar rúbricas desde Excel</h2><span class="external-symbol" aria-hidden="true">↗</span></div>
@@ -173,6 +193,55 @@ Genera únicamente la cadena de texto limpia.</textarea>
           <a class="action-button btn-secondary-action external-action" href="https://chromewebstore.google.com/detail/moodle-rubric-importer/mibgeikbmhnmicoopgofmcaebkoplpch" target="_blank" rel="noopener noreferrer">Ver Moodle Rubric Importer <span aria-hidden="true">↗</span></a>
           <p class="fine-print">Comprueba el formato del archivo y su compatibilidad antes de guardar los cambios.</p>
         </section>
+      </div>
+
+      <div class="tab-pane fade" id="tab-corregir" role="tabpanel" aria-labelledby="tab-corregir-tab" tabindex="0">
+        <div class="section-heading">
+          <p class="section-eyebrow">EVALUACIÓN</p>
+          <h1>Corregir</h1>
+          <p>Califica rúbricas y reutiliza comentarios en tus correcciones.</p>
+        </div>
+        <section class="feature-card" aria-labelledby="calificar-title">
+          <div class="feature-title-row">
+            <h2 id="calificar-title">Calificar rúbrica</h2>
+            <button type="button" class="info-button" aria-label="Ayuda: calificar rúbrica" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Abre la página de corrección de la tarea antes de calificar.">i</button>
+          </div>
+          <p class="feature-description">Marca rápidamente todos los criterios de la rúbrica.</p>
+          <div class="button-group button-group-split">
+            <button type="button" class="action-button btn-danger-subtle" id="btn-no-entregado">No entregado</button>
+            <button type="button" class="action-button btn-primary-action" id="btn-perfecto">Perfecto</button>
+          </div>
+        </section>
+
+        <section class="feature-card" aria-labelledby="feedback-title">
+          <div class="feature-title-row"><h2 id="feedback-title">Retroalimentaciones guardadas</h2></div>
+          <p class="feature-description">Crea varias plantillas, elige la más apropiada y escríbela en el editor de comentarios de la tarea.</p>
+          <div class="form-container">
+            <div class="form-group">
+              <label for="feedback-select">Plantilla</label>
+              <select id="feedback-select" aria-label="Elegir retroalimentación guardada">
+                <option value="">Selecciona una plantilla</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="feedback-title-input">Nombre de la plantilla</label>
+              <input type="text" id="feedback-title-input" maxlength="80" placeholder="Por ejemplo: Trabajo bien realizado" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label for="feedback-body-input">Texto de la retroalimentación</label>
+              <textarea id="feedback-body-input" rows="6" maxlength="8000" placeholder="Has realizado un buen trabajo. Destaco..." aria-describedby="feedback-help"></textarea>
+            </div>
+            <div class="button-group feedback-manage-actions">
+              <button type="button" class="action-button btn-secondary-action" id="feedback-new">Nueva</button>
+              <button type="button" class="action-button btn-primary-action" id="feedback-save">Guardar plantilla</button>
+              <button type="button" class="action-button btn-danger-subtle" id="feedback-delete" disabled>Eliminar</button>
+            </div>
+            <button type="button" class="action-button btn-primary-action" id="feedback-write" disabled>Escribir retroalimentación</button>
+          </div>
+          <p id="feedback-help" class="fine-print">Se añadirá automáticamente «Hola Nombre,» al principio y «Un saludo.» al final, usando solo el primer nombre de la ficha del alumno con mayúscula inicial. El texto sustituye al comentario actual; revisa y guarda la calificación en Moodle.</p>
+          <p id="feedback-status" class="status-message" role="status" aria-live="polite"></p>
+        </section>
+        <p class="context-note">Las plantillas se guardan solo en el almacenamiento local del navegador, no contienen nombres del alumnado y no se sincronizan con Moodle.</p>
       </div>
 
       <div class="tab-pane fade" id="tab4" role="tabpanel" aria-labelledby="tab4-tab" tabindex="0">
@@ -242,11 +311,13 @@ Genera únicamente la cadena de texto limpia.</textarea>
         <div id="fp-forums-popup"></div>
       </div>
     </main>
-    <footer class="app-footer"><span class="footer-dot" aria-hidden="true"></span> Diseñado para FP Virtual Aragón <span class="footer-separator">·</span> v2.2.0</footer>
+    <footer class="app-footer"><span class="footer-dot" aria-hidden="true"></span> Diseñado para FP Virtual Aragón <span class="footer-separator">·</span> v2.3.2</footer>
   </div>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="components/fecha-element.js"></script>
+  <script src="rubric-csv.js"></script>
   <script src="popup.js"></script>
+  <script src="feedback.js"></script>
   <script src="forums-ui.js"></script>
   <script src="forums-popup.js"></script>
 </body>
